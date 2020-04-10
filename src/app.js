@@ -4,6 +4,7 @@ const cors = require("cors")
 const express = require("express")
 const helmet = require("helmet")
 const mongoose = require("mongoose")
+const morgan = require("morgan")
 
 module.exports = class App {
     constructor() {
@@ -56,9 +57,10 @@ module.exports = class App {
 			methods: "GET, POST, PUT, DELETE",
 			origin: "*"
         }))
-        this[provider].use(json())
-		this[provider].use(urlencoded({
+        this.app.use(json())
+		this.app.use(urlencoded({
 			extended: true
-		}))
+        }))
+        this.app.use(morgan("dev"))
     }
 }
