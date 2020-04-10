@@ -1,6 +1,7 @@
 const { createServer } = require("http")
 const express = require("express")
 const mongoose = require("mongoose")
+const helmet = require("helmet")
 
 module.exports = class App {
     constructor() {
@@ -13,6 +14,7 @@ module.exports = class App {
 	initialize() {
         this.setupExpress()
         this.setupMongodb()
+        this.configuration()
 	}
 
     /** Setup server with express
@@ -39,5 +41,13 @@ module.exports = class App {
 		err => {
 			err ? console.log(err.message) : console.log("Database connected")
 		})
+    }
+
+    /** Setup and using packages
+	 * @private
+	 * @package helmet, cors, body-parser, contentType, morgan
+	 */
+    configuration() {
+        this.app.use(helmet())
     }
 }
