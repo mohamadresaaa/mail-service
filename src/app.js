@@ -2,6 +2,7 @@ const { createServer } = require("http")
 const express = require("express")
 const mongoose = require("mongoose")
 const helmet = require("helmet")
+const cors = require("cors")
 
 module.exports = class App {
     constructor() {
@@ -49,5 +50,10 @@ module.exports = class App {
 	 */
     configuration() {
         this.app.use(helmet())
+        this.app.use(cors({
+			credentials: true,
+			methods: "GET, POST, PUT, DELETE",
+			origin: "*"
+		}))
     }
 }
