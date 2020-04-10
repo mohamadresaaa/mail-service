@@ -3,6 +3,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const helmet = require("helmet")
 const cors = require("cors")
+const { json, urlencoded } = require("body-parser")
 
 module.exports = class App {
     constructor() {
@@ -54,6 +55,10 @@ module.exports = class App {
 			credentials: true,
 			methods: "GET, POST, PUT, DELETE",
 			origin: "*"
+        }))
+        this[provider].use(json())
+		this[provider].use(urlencoded({
+			extended: true
 		}))
     }
 }
