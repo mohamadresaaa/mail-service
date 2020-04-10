@@ -1,9 +1,9 @@
 const { createServer } = require("http")
-const express = require("express")
-const mongoose = require("mongoose")
-const helmet = require("helmet")
-const cors = require("cors")
 const { json, urlencoded } = require("body-parser")
+const cors = require("cors")
+const express = require("express")
+const helmet = require("helmet")
+const mongoose = require("mongoose")
 
 module.exports = class App {
     constructor() {
