@@ -1,6 +1,7 @@
 const { apiError404, apiErrorHandler } = require("./middleware/errorHandle")
 const { createServer } = require("http")
 const { json, urlencoded } = require("body-parser")
+const contentType = require("./middleware/contentType")
 const cors = require("cors")
 const express = require("express")
 const helmet = require("helmet")
@@ -70,6 +71,7 @@ module.exports = class App {
 		this[provider].use(urlencoded({
 			extended: true
 		}))
+		this[provider].use(contentType)
 		this[provider].use(morgan("dev"))
 	}
 
