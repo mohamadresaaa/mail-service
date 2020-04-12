@@ -7,27 +7,34 @@ const helmet = require("helmet")
 const mongoose = require("mongoose")
 const morgan = require("morgan")
 
+/** @define Private properties and methods */
+const configuration = Symbol("Server packages configuration")
+const provider = Symbol("Application provider")
+const setupExpress = Symbol("Express installation")
+const setupMongodb = Symbol("Mongodb installation and configuration")
+const setupRoutes = Symbol("Setup server routes")
+
 module.exports = class App {
 	constructor() {
-		this.app = express()
+		this[provider] = express()
 	}
 
 	/** Run all methods
 	 * @public
 	 */
 	initialize() {
-		this.setupExpress()
-		this.setupMongodb()
-		this.configuration()
-		this.setupRoutes()
+		this[setupExpress]()
+		this[setupMongodb]()
+		this[configuration]()
+		this[setupRoutes]()
 	}
 
 	/** Setup server with express
 	 * @private
 	 * @package http, express
 	 */
-	setupExpress() {
-		const server = createServer(this.app)
+	[setupExpress]() {
+		const server = createServer(this[provider])
 		server.listen(3000, () =>  console.log("Server running on port 3000"))
 	}
 
@@ -35,7 +42,7 @@ module.exports = class App {
 	 * @private
 	 * @package mongoose
 	 */
-	setupMongodb() {
+	[setupMongodb]() {
 		mongoose.Promise = global.Promise
 		mongoose.connect("", {
 			useCreateIndex: true,
@@ -52,25 +59,25 @@ module.exports = class App {
 	 * @private
 	 * @package helmet, cors, body-parser, contentType, morgan
 	 */
-	configuration() {
-		this.app.use(helmet())
-		this.app.use(cors({
+	[configuration]() {
+		this[provider].use(helmet())
+		this[provider].use(cors({
 			credentials: true,
 			methods: "GET, POST, PUT, DELETE",
 			origin: "*"
 		}))
-		this.app.use(json())
-		this.app.use(urlencoded({
+		this[provider].use(json())
+		this[provider].use(urlencoded({
 			extended: true
 		}))
-		this.app.use(morgan("dev"))
+		this[provider].use(morgan("dev"))
 	}
 
 	/** Import routes and errors management
 	 * @private
 	 */
-	setupRoutes() {
-		this.app.use("*", apiError404)
-		this.app.use(apiErrorHandler)
+	[setupRoutes]() {
+		this[provider].use("*", apiError404)
+		this[provider].use(apiErrorHandler)
 	}
 }
