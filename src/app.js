@@ -1,3 +1,4 @@
+const { apiError404, apiErrorHandler } = require("./middleware/errorHandle")
 const { createServer } = require("http")
 const { json, urlencoded } = require("body-parser")
 const cors = require("cors")
@@ -18,6 +19,7 @@ module.exports = class App {
 		this.setupExpress()
 		this.setupMongodb()
 		this.configuration()
+		this.setupRoutes()
 	}
 
 	/** Setup server with express
@@ -62,5 +64,13 @@ module.exports = class App {
 			extended: true
 		}))
 		this.app.use(morgan("dev"))
+	}
+
+	/** Import routes and errors management
+	 * @private
+	 */
+	setupRoutes() {
+		this.app.use("*", apiError404)
+		this.app.use(apiErrorHandler)
 	}
 }
