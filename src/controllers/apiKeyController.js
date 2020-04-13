@@ -17,7 +17,7 @@ module.exports = new class ApiKeyController extends baseController {
 		}
 	}
     
-	async update(req, res, next) {
+	async edit(req, res, next) {
 		try {
 			res.send("update apiKey")
 		} catch (error) {
