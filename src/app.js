@@ -7,6 +7,7 @@ const express = require("express")
 const helmet = require("helmet")
 const mongoose = require("mongoose")
 const morgan = require("morgan")
+const routes = require("./routes")
 
 /** @define Private properties and methods */
 const configuration = Symbol("Server packages configuration")
@@ -79,6 +80,7 @@ module.exports = class App {
 	 * @private
 	 */
 	[setupRoutes]() {
+		this[provider].use(routes)
 		this[provider].use("*", apiError404)
 		this[provider].use(apiErrorHandler)
 	}
