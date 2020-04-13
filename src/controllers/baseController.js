@@ -1,9 +1,13 @@
 const autoBind = require("auto-bind")
+const models = require("../models")
 
 module.exports = class BaseController {
 	constructor () {
 		// Binding methods for using on child classes
 		autoBind(this)
+        
+		// Set models
+		this[Symbol.for("models")] = models
 	}
 
 	/** Show public info message
