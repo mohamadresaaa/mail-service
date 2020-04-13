@@ -1,11 +1,11 @@
 const router = require("express").Router()
 
 // Import routes
-const apiKey = require("./apiKey")
+const credential = require("./credential")
 const mail = require("./mail")
 
 // Use routes
-router.use("/apiKeys", apiKey)
+router.use("/credentials", credential)
 router.use("/mails", mail)
 
 // Exports router
