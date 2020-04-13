@@ -1,20 +1,13 @@
 const router = require("express").Router()
 
-router.get("/", (req, res) => {
-	res.send("mails")
-})
-router.get("/:id", (req, res) => {
-	res.send("details of mail")
-})
-router.post("/", (req, res) => {
-	res.send("send and create mail")
-})
-router.put("/:id", (req, res) => {
-	res.send("update mail")
-})
-router.delete("/:id", (req, res) => {
-	res.send("remove mail")
-})
+// Controllers
+const { mail } = require("../controllers")
+
+router.get("/", mail.list)
+router.get("/:id", mail.details)
+router.post("/", mail.create)
+router.put("/:id", mail.edit)
+router.delete("/:id", mail.remove)
 
 // Exports router
 module.exports = router
