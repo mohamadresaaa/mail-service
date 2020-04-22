@@ -1,6 +1,6 @@
 /** Create a new credential and generate apiKey
  * @param {object} controller
- * @param {string} name from req.bod
+ * @param {string} name from req.body
  * @param {string} user from req.body
  * @param {object} res from express
  * @returns {response} message
