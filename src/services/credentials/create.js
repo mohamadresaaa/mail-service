@@ -3,19 +3,19 @@
  * @param {string} name from req.body
  * @param {string} user from req.body
  * @param {object} res from express
- * @returns {response} message
+ * @returns {response} apiKey
  */
 module.exports = async (controller, data, res) => {
 	try {
-		// Credential model
-		const { Credential } = controller[Symbol.for("models")]
+		// Credentials model
+		const { Credentials } = controller[Symbol.for("models")]
 
 		// Create new apiKey and generate it
-		let credential =  await new Credential({
+		let credential =  await new Credentials({
 			...data
 		}).save()
 
-		// Return message
+		// Return apiKey
 		return controller.infoMessage(res, 201, {
 			apiKey: credential.apiKey
 		})
