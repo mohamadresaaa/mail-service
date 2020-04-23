@@ -16,7 +16,7 @@ module.exports = async (controller, data, res) => {
 		}).save()
 
 		// Return message
-		return controller.infoMessage(res, 200, {
+		return controller.infoMessage(res, 201, {
 			apiKey: credential.apiKey
 		})
 	} catch (error) {
