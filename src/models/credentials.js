@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose")
 
-const credentialSchema = new Schema({
+const credentialsSchema = new Schema({
 	apiKey: {
 		type: String,
 		unique: true
@@ -17,6 +17,6 @@ const credentialSchema = new Schema({
 })
 
 // Index fields
-credentialSchema.index({ apiKey: 1 })
+credentialsSchema.index({ apiKey: 1 })
 
-module.exports = model("Credential", credentialSchema)
+module.exports = model("Credentials", credentialsSchema)
