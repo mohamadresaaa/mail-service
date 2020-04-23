@@ -1,4 +1,4 @@
-/** Create a new credential and generate apiKey
+/** Update credentials
  * @param {object} controller
  * @param {string} name from req.body
  * @param {object} credentials from req
